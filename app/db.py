@@ -13,7 +13,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS urls (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             original_url TEXT NOT NULL,
-            short_url TEXT UNIQUE,
+            short_url TEXT UNIQUE NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         """)
