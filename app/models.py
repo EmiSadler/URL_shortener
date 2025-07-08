@@ -1,5 +1,5 @@
 from app.shortener import generate_short_url
-from app.db import get_connection
+from app.db import get_db_connection
 
 class Url:
     def __init__(self, id, original_url, short_url):
@@ -59,7 +59,7 @@ def get_short_url(original_url):
     return short_url
 
 def save_url_to_db(url):
-    with get_connection() as conn:
+    with get_db_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO urls (original_url) VALUES (?)",
@@ -71,7 +71,7 @@ def save_url_to_db(url):
 
 def update_short_url_in_db(url_id, short_url):
     """Update the short_url field for a given URL ID"""
-    with get_connection() as conn:
+    with get_db_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(
             "UPDATE urls SET short_url = ? WHERE id = ?",
@@ -81,7 +81,7 @@ def update_short_url_in_db(url_id, short_url):
 
 def find_original_url(short_url):
     """Find the original URL by short_url - needed for redirects"""
-    with get_connection() as conn:
+    with get_db_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT original_url FROM urls WHERE short_url = ?", (short_url,))
         row = cursor.fetchone()
