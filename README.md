@@ -112,10 +112,10 @@ curl -X POST \
   -d '{"url": "https://github.com/EmiSadler"}' \
   http://localhost:8000/shorten
 
-# Stack Overflow
+# Bootcamp Simulator
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"url": "https://stackoverflow.com"}' \
+  -d '{"url": "https://bootcampsim.netlify.app/"}' \
   http://localhost:8000/shorten
 ```
 
