@@ -1,20 +1,24 @@
 import re
 
+#Compile URL pattern once for performance and then use it for validation
+URL_PATTERN = re.compile(
+    r'^https?://'  # http:// or https://
+    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
+    r'localhost|'  # localhost...
+    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+    r'(?::\d+)?'  # optional port
+    r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
+# Configuration constants
+MAX_URL_LENGTH = 2048
+MAX_SHORT_URL_LENGTH = 10
+
 def is_valid_url(url):
-    """Basic URL validation"""
+    """Basic URL validation using pre-compiled regex"""
     if not url or not isinstance(url, str):
         return False
     
-    # Check if URL starts with http:// or https://
-    url_pattern = re.compile(
-        r'^https?://'  # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
-        r'localhost|'  # localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
-        r'(?::\d+)?'  # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    
-    return url_pattern.match(url) is not None
+    return URL_PATTERN.match(url) is not None
 
 def validate_shorten_request(request_data, is_json):
     """
@@ -63,7 +67,7 @@ def validate_short_url(short_url):
         return False, {'error': 'Invalid short URL format'}, 400
     
     # Check for reasonable length (base62 shouldn't be too long)
-    if len(short_url) > 10:
+    if len(short_url) > MAX_SHORT_URL_LENGTH:
         return False, {'error': 'Invalid short URL format'}, 400
     
     return True, None, None
