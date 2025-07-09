@@ -46,9 +46,9 @@ def validate_shorten_request(request_data, is_json):
         }, 422
     
     # Check URL length (reasonable limit)
-    if len(original_url) > 2048:
+    if len(original_url) > MAX_URL_LENGTH:
         return False, {
-            'error': 'URL too long. Maximum length is 2048 characters'
+            f'error': f'URL too long. Maximum length is {MAX_URL_LENGTH} characters'
         }, 422
     
     return True, None, None
