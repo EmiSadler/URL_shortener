@@ -7,47 +7,6 @@ class Url:
         self.original_url = original_url
         self.short_url = short_url
 
-
-# take in original URL from user input, 
-# check if it exists in the database, 
-# and return the short URL if it does, 
-# or create a new short URL if it doesn't.
-"""
-# def get_short_url(original_url):
-#     existing_url = find_url_in_db(original_url)
-#     if existing_url:
-#         return existing_url.short_url
-
-#     new_id = get_next_id()
-#     short_url = generate_short_url(new_id)
-#     save_url_to_db(Url(new_id, original_url, short_url))
-#     return short_url
-
-# def get_next_id():
-#     with get_db_connection() as conn:
-#         cursor = conn.cursor()
-#         cursor.execute("SELECT MAX(id) FROM urls")
-#         max_id = cursor.fetchone()[0]
-#         return (max_id + 1) if max_id is not None else 1
-    
-# def save_url_to_db(url):
-#     with get_db_connection() as conn:
-#         cursor = conn.cursor()
-#         cursor.execute(
-#             "INSERT INTO urls (original_url, short_url) VALUES (?, ?)",
-#             (url.original_url, url.short_url)
-#         )
-#         conn.commit()
-
-# def find_url_in_db(original_url):
-#     with get_db_connection() as conn:
-#         cursor = conn.cursor()
-#         cursor.execute("SELECT * FROM urls WHERE original_url = ?", (original_url,))
-#         row = cursor.fetchone()
-#         if row:
-#             return Url(row[0], row[1], row[2]) 
-#     return None
-"""
 # When a user inputs a long URL, save the long URL to the database,
 # generate a short URL, and return the short URL to the user.
 # does not check for existing URLs in the database in order to allow the user to create multiple short URLs for the same long URL.
