@@ -14,6 +14,7 @@ def register_routes(app):
     def shorten_url():
         original_url = request.json.get('url')
         short_url = get_short_url(original_url)
+        short_url = f"{request.url_root.rstrip('/')}/{short_url}"
         return jsonify({'short_url': short_url})
 
     #GET /<short_url> - redirects to the original long URL

@@ -7,7 +7,7 @@ app = Flask(__name__)
 def main():
     init_db()                    # Setup database
     register_routes(app)         # Connect routes to app
-    app.run(debug=True)          # Start the server
+    app.run(debug=True, host='0.0.0.0', port=8000) # Run the app
 
 if __name__ == "__main__":
     main()
