@@ -14,13 +14,20 @@ A Python backend service for shortening URLs using Flask and SQLite.
 
 ## Setup
 
-1. **Install dependencies:**
+1. **Set up Virtual Environment**
+
+   ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+   ```
+
+2. **Install dependencies:**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **Run the application:**
+3. **Run the application:**
 
    ```bash
    python main.py
