@@ -1,4 +1,4 @@
-from flask import request, jsonify, redirect
+from flask import request, jsonify, redirect, url_for
 from app.models import get_short_url, find_original_url
 from app.validators import validate_shorten_request, validate_short_url
 from app.error_handlers import (
@@ -31,7 +31,7 @@ def register_routes(app):
             # Generate short URL
             original_url = request.json.get('url').strip()
             short_url = get_short_url(original_url)
-            full_short_url = f"{request.url_root.rstrip('/')}/{short_url}"
+            full_short_url = url_for('redirect_to_url', short_url=short_url, _external=True)
             
             return create_success_response({
                 'short_url': full_short_url,
