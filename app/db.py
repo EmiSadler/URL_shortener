@@ -9,6 +9,8 @@ def get_db_connection():
 def init_db():
     with get_db_connection() as conn:
         cursor = conn.cursor()
+        
+        # Create the table
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS urls (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,6 +19,15 @@ def init_db():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         """)
+        
+        # Set the auto-increment to start at 10000
+        # Only do this if the table is empty (first time setup)
+        cursor.execute("SELECT COUNT(*) FROM urls")
+        count = cursor.fetchone()[0]
+        
+        if count == 0:  # Table is empty, set starting ID
+            cursor.execute("INSERT INTO sqlite_sequence (name, seq) VALUES ('urls', 9999)")
+        
         conn.commit()
 
 # added TIMESTAMP to initial set up for optional future use (expiry time for the links)
