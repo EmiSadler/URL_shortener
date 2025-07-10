@@ -40,6 +40,10 @@ pip install -r requirements.txt > logs/pip-install.log 2>&1
 echo "Installing Node.js dependencies..."
 cd frontend
 npm install > ../logs/npm-install.log 2>&1
+if [ $? -ne 0 ]; then
+    echo "❌ Failed to install Node.js dependencies. Check logs/npm-install.log for details."
+    exit 1
+fi
 cd ..
 
 echo "🔧 Starting Backend (Flask) on port 8000..."
