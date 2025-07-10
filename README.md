@@ -1,8 +1,10 @@
 # URL Shortener
 
-A Python backend service for shortening URLs using Flask and SQLite.
+A full-stack URL shortener application with a Python Flask backend and React frontend.
 
 ## Features
+
+### Backend (Flask + SQLite)
 
 - ✅ Create short URLs from long URLs
 - ✅ Redirect short URLs to original URLs
@@ -11,8 +13,31 @@ A Python backend service for shortening URLs using Flask and SQLite.
 - ✅ Base62 encoding for short, readable URLs
 - ✅ SQLite database for persistence
 - ✅ IDs start at 10000 for better-looking short URLs
+- ✅ CORS support for frontend integration
+- ✅ Comprehensive error handling and validation
 
-## Setup
+### Frontend (React)
+
+- ✅ Modern, responsive UI with gradient background
+- ✅ Real-time URL validation
+- ✅ Copy shortened URL to clipboard
+- ✅ Test shortened URLs directly in the interface
+- ✅ Loading states and error handling
+- ✅ Success notifications
+
+## Quick Start
+
+### Option 1: Use the Development Startup Script (Recommended)
+
+```bash
+./start-dev.sh
+```
+
+This will start both the backend (port 8000) and frontend (port 3000) automatically.
+
+### Option 2: Manual Setup
+
+#### Backend Setup
 
 1. **Set up Virtual Environment**
 
@@ -21,25 +46,37 @@ A Python backend service for shortening URLs using Flask and SQLite.
     source venv/bin/activate
    ```
 
-2. **Install dependencies:**
+2. **Install Python dependencies:**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the application:**
+3. **Start the backend:**
 
    ```bash
    python main.py
    ```
 
-   You should see:
+#### Frontend Setup
 
+1. **Install Node.js dependencies:**
+
+   ```bash
+   cd frontend
+   npm install
    ```
-   Starting URL Shortener on http://localhost:8000
-   * Running on all addresses (0.0.0.0)
-   * Running on http://127.0.0.1:8000
+
+2. **Start the React development server:**
+
+   ```bash
+   npm start
    ```
+
+## Application URLs
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
 
 ## API Testing
 
@@ -143,6 +180,52 @@ Test with non-existent short URL:
 curl http://localhost:8000/xyz123
 ```
 
+## Production Build
+
+### Build Frontend for Production
+
+```bash
+./build-prod.sh
+```
+
+Or manually:
+
+```bash
+cd frontend
+npm run build
+```
+
+### Serve Production Build
+
+Option 1 - Using a static file server:
+
+```bash
+npm install -g serve
+serve -s frontend/build -l 3000
+```
+
+Option 2 - Using Python's built-in server:
+
+```bash
+cd frontend/build
+python -m http.server 3000
+```
+
+### Production Deployment
+
+For production deployment:
+
+1. **Backend**: Use a WSGI server like Gunicorn
+
+   ```bash
+   pip install gunicorn
+   gunicorn -w 4 -b 0.0.0.0:8000 main:create_app()
+   ```
+
+2. **Frontend**: Serve the built files using a web server like Nginx or Apache
+
+3. **Database**: Consider using PostgreSQL for production instead of SQLite
+
 ## API Endpoints
 
 | Method | Endpoint              | Description                       |
@@ -156,17 +239,38 @@ curl http://localhost:8000/xyz123
 
 ```
 URL_shortener/
-├── app/
+├── app/                    # Backend Flask application
 │   ├── __init__.py
-│   ├── db.py           # Database connection and initialization
-│   ├── models.py       # URL model and database operations
-│   ├── routes.py       # Flask API routes
-│   ├── shortener.py    # Short URL generation logic (base62)
-│   └── utils.py        # Utility functions
-├── tests/              # Test files
-├── main.py            # Application entry point
-├── requirements.txt   # Python dependencies
-├── url_shortener.db   # SQLite database (created automatically)
+│   ├── config.py          # Configuration settings
+│   ├── db.py              # Database connection and initialization
+│   ├── models.py          # URL model and database operations
+│   ├── routes.py          # Flask API routes
+│   ├── shortener.py       # Short URL generation logic (base62)
+│   ├── validators.py      # Input validation functions
+│   └── error_handlers.py  # Error handling utilities
+├── frontend/               # React frontend application
+│   ├── public/
+│   │   ├── index.html     # HTML template
+│   │   └── manifest.json  # PWA manifest
+│   ├── src/
+│   │   ├── components/    # React components
+│   │   │   ├── Header.js      # App header
+│   │   │   ├── Footer.js      # App footer
+│   │   │   └── URLShortener.js # Main URL shortener form
+│   │   ├── App.js         # Main App component
+│   │   ├── index.js       # React entry point
+│   │   └── index.css      # Global styles
+│   ├── package.json       # Node.js dependencies
+│   └── build/             # Production build (after npm run build)
+├── tests/                  # Test files for backend
+├── .github/                # GitHub Actions CI/CD
+├── docs/                   # Documentation
+├── scripts/                # Utility scripts
+├── main.py                # Backend entry point
+├── requirements.txt       # Python dependencies
+├── start-dev.sh           # Development startup script
+├── build-prod.sh          # Production build script
+├── url_shortener.db       # SQLite database (created automatically)
 └── README.md
 ```
 
