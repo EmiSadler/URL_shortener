@@ -20,16 +20,30 @@ def register_routes(app):
     @app.route('/shorten', methods=['POST'])
     def shorten_url():
         try:
+            # Handle Flask's JSON parsing errors
+            if not request.is_json:
+                return create_error_response(
+                    {'error': 'Content-Type must be application/json'}, 400
+                )
+            
+            # Try to access request.json to trigger any JSON parsing errors
+            try:
+                request_data = request.json
+            except Exception:
+                return create_error_response(
+                    {'error': 'Request body must contain valid JSON'}, 400
+                )
+            
             # Validate the request
             is_valid, error_response, status_code = validate_shorten_request(
-                request.json, request.is_json
+                request_data, request.is_json
             )
             
             if not is_valid:
                 return create_error_response(error_response, status_code)
             
             # Generate short URL
-            original_url = request.json.get('url').strip()
+            original_url = request_data.get('url').strip()
             short_url = get_short_url(original_url)
             full_short_url = url_for('redirect_to_url', short_url=short_url, _external=True)
             
