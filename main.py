@@ -1,14 +1,11 @@
-from flask import Flask
 from app.db import init_db
-from app.routes import register_routes
-
-app = Flask(__name__)
+from app.routes import app as routes_app
+from flask import Flask
 
 def main():
-    init_db()                    # Setup database
-    register_routes(app)         # Connect routes to app
-    app.run(debug=True, host='0.0.0.0', port=8000) # Run the app
+    init_db()
 
 if __name__ == "__main__":
     main()
 
+app = Flask(__name__)
