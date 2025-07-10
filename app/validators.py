@@ -14,11 +14,10 @@ MAX_URL_LENGTH = 2048
 MAX_SHORT_URL_LENGTH = 10
 
 def is_valid_url(url):
-    """Basic URL validation using pre-compiled regex"""
+    """Validate URL format using regex"""
     if not url or not isinstance(url, str):
         return False
-    
-    return URL_PATTERN.match(url) is not None
+    return URL_PATTERN.match(url.strip()) is not None
 
 def validate_shorten_request(request_data, is_json):
     """
@@ -67,7 +66,7 @@ def validate_short_url(short_url):
         return False, {'error': 'Invalid short URL format'}, 400
     
     # Check for reasonable length (base62 shouldn't be too long)
-    if len(short_url) > MAX_SHORT_URL_LENGTH:
+    if len(short_url.strip()) > MAX_SHORT_URL_LENGTH:
         return False, {'error': 'Invalid short URL format'}, 400
     
     return True, None, None
