@@ -1,4 +1,5 @@
-from flask import request, jsonify, redirect, url_for
+from flask import request, jsonify, redirect, url_for, send_from_directory
+import os
 from app.models import get_short_url, find_original_url
 from app.validators import validate_shorten_request, validate_short_url
 from app.error_handlers import (
@@ -12,9 +13,11 @@ def register_routes(app):
     """Register all routes with the Flask app"""
     
     @app.route('/', methods=['GET'])
-    def home():
-        """Health check endpoint"""
-        return jsonify({"message": "URL Shortener API is running!"})
+    def serve_frontend():
+        """Serve the React frontend index.html"""
+        static_folder = '/app/static'
+        return send_from_directory(static_folder, 'index.html')
+
     
     #POST /shorten - takes in a long URL and returns a short URL
     @app.route('/shorten', methods=['POST'])
