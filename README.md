@@ -8,7 +8,6 @@ A full-stack URL shortener application with a Python Flask backend and React fro
 
 - ✅ Create short URLs from long URLs
 - ✅ Redirect short URLs to original URLs
-- ✅ Decode short URLs to see original without redirecting
 - ✅ Multiple short URLs allowed for same long URL (for tracking)
 - ✅ Base62 encoding for short, readable URLs
 - ✅ SQLite database for persistence
@@ -131,21 +130,7 @@ curl -I http://localhost:8000/2Bi
 
 This will show you the redirect response instead of following it (cleaner in the CLI)
 
-### 4. Decode Short URL
-
-Get the original URL without redirecting:
-
-```bash
-curl http://localhost:8000/decode/2Bi
-```
-
-**Expected Response:**
-
-```json
-{ "original_url": "https://www.google.com" }
-```
-
-### 5. Test Multiple URLs
+### 4. Test Multiple URLs
 
 Create several short URLs:
 
@@ -163,7 +148,7 @@ curl -X POST \
   http://localhost:8000/shorten
 ```
 
-### 6. Error Handling
+### 5. Error Handling
 
 Test with missing URL:
 
@@ -228,12 +213,11 @@ For production deployment:
 
 ## API Endpoints
 
-| Method | Endpoint              | Description                       |
-| ------ | --------------------- | --------------------------------- |
-| `GET`  | `/`                   | Health check                      |
-| `POST` | `/shorten`            | Create short URL from long URL    |
-| `GET`  | `/<short_url>`        | Redirect to original URL          |
-| `GET`  | `/decode/<short_url>` | Get original URL without redirect |
+| Method | Endpoint       | Description                    |
+| ------ | -------------- | ------------------------------ |
+| `GET`  | `/`            | Health check                   |
+| `POST` | `/shorten`     | Create short URL from long URL |
+| `GET`  | `/<short_url>` | Redirect to original URL       |
 
 ## Project Structure
 
