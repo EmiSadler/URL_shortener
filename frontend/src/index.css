@@ -17,7 +17,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #f9506e;
   min-height: 100vh;
   color: #1f2937;
 }
@@ -80,7 +80,7 @@ code {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: #00e2dc;
   color: white;
   box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.4);
 }

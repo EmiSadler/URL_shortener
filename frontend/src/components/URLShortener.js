@@ -95,7 +95,7 @@ const URLShortener = () => {
                 fontSize: "2rem",
                 fontWeight: "700",
                 marginBottom: "0.5rem",
-                background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
+                background: "#00E2DC",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
