@@ -60,4 +60,4 @@ RUN chown -R app:app /app
 USER app
 
 # Run the application
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT} --workers 4 --timeout 120 main:create_app()"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT} --workers 4 --timeout 120 'main:create_app()'"]
