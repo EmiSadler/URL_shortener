@@ -61,23 +61,6 @@ for short_url in "${SHORT_URLS[@]}"; do
     echo ""
 done
 
-echo "📊 Testing decode functionality:"
-echo ""
-
-for short_url in "${SHORT_URLS[@]}"; do
-    # Extract just the short code from the URL
-    short_code=$(basename "$short_url")
-    
-    echo "Decoding: $short_code"
-    
-    # Call the decode API
-    response=$(curl -s "http://localhost:8000/decode/$short_code")
-    original_url=$(echo $response | python3 -c "import sys, json; print(json.load(sys.stdin)['original_url'])")
-    
-    echo "   🔍 Original URL: $original_url"
-    echo ""
-done
-
 echo "🎉 Demo completed!"
 echo ""
 echo "💡 Try the web interface at: http://localhost:3000"
@@ -86,4 +69,4 @@ echo "📚 API endpoints:"
 echo "   GET  /              - Health check"
 echo "   POST /shorten       - Shorten a URL"
 echo "   GET  /{short_code}  - Redirect to original URL"
-echo "   GET  /decode/{code} - Get original URL without redirect"
+

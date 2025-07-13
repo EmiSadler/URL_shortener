@@ -75,25 +75,3 @@ def register_routes(app):
         except Exception as e:
             return handle_server_error(e, "during redirect")
 
-    #GET /decode/<short_url> - decodes the short URL to return the original long URL
-    @app.route('/decode/<short_url>', methods=['GET'])
-    def decode_url(short_url):
-        try:
-            # Validate short URL format
-            is_valid, error_response, status_code = validate_short_url(short_url)
-            
-            if not is_valid:
-                return create_error_response(error_response, status_code)
-                
-            original_url = find_original_url(short_url.strip())
-            
-            if original_url:
-                return create_success_response({
-                    'original_url': original_url,
-                    'short_url': short_url
-                })
-            else:
-                return handle_not_found("Short URL", short_url)
-                
-        except Exception as e:
-            return handle_server_error(e, "during decode")

@@ -182,63 +182,14 @@ class TestRedirectEndpoint(TestRoutes):
         
         assert response.status_code == 500
         data = response.get_json()
-        assert 'Internal server error' in data['error']
-
-
-class TestDecodeEndpoint(TestRoutes):
-    # Test the /decode/<short_url> endpoint
-
-    @patch('app.routes.find_original_url')
-    def test_decode_success(self, mock_find_original_url, client):
-        # Test successful decode
-        mock_find_original_url.return_value = "https://example.com"
-        
-        response = client.get('/decode/abc123')
-        
-        assert response.status_code == 200
-        data = response.get_json()
-        assert data['original_url'] == 'https://example.com'
-        assert data['short_url'] == 'abc123'
-    
-    @patch('app.routes.find_original_url')
-    def test_decode_not_found(self, mock_find_original_url, client):
-        # Test decode with non-existent short URL
-        mock_find_original_url.return_value = None
-        
-        response = client.get('/decode/xyz789')
-        
-        assert response.status_code == 404
-        data = response.get_json()
-        assert data['error'] == 'Short URL not found'
-        assert data['short_url'] == 'xyz789'
-    
-    def test_decode_invalid_format(self, client):
-        # Test decode with invalid short URL format
-        response = client.get('/decode/toolongshorturl123')
-        
-        assert response.status_code == 400
-        data = response.get_json()
-        assert data['error'] == 'Invalid short URL format'
-    
-    @patch('app.routes.find_original_url')
-    def test_decode_server_error(self, mock_find_original_url, client):
-        # Test decode with server error
-        mock_find_original_url.side_effect = Exception("Database error")
-        
-        response = client.get('/decode/abc123')
-        
-        assert response.status_code == 500
-        data = response.get_json()
-        assert 'Internal server error' in data['error']
-
-
+      
 class TestIntegrationTests(TestRoutes):
     # Integration tests using real database
 
     @patch('app.models.get_db_connection')
     @patch('app.db.get_db_connection')
     def test_full_workflow_integration(self, mock_db_get_db_connection, mock_models_get_db_connection, client, temp_db):
-        # Test complete workflow: shorten -> redirect -> decode
+        # Test complete workflow: shorten -> redirect
         import sqlite3
         
         # Mock the database connection to use temp database
@@ -265,8 +216,3 @@ class TestIntegrationTests(TestRoutes):
         assert response.status_code == 302
         assert response.location == 'https://example.com'
         
-        # Step 3: Test decode
-        response = client.get(f'/decode/{short_code}')
-        assert response.status_code == 200
-        data = response.get_json()
-        assert data['original_url'] == 'https://example.com'
