@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
+import os
 from app.db import init_db
 from app.routes import register_routes
 
@@ -19,7 +20,8 @@ def main():
     """Initialize database and start the application"""
     init_db()
     app = create_app()
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    port = int(os.getenv("PORT", 8000))
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 if __name__ == "__main__":
     main()

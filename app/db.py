@@ -1,7 +1,8 @@
 import sqlite3
+import os
 from pathlib import Path
 
-DB_PATH = Path("url_shortener.db")
+DB_PATH = Path(os.getenv("DATABASE_PATH", "url_shortener.db"))
 
 def get_db_connection():
     return sqlite3.connect(DB_PATH)
