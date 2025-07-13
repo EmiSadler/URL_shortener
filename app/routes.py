@@ -15,8 +15,12 @@ def register_routes(app):
     @app.route('/', methods=['GET'])
     def serve_frontend():
         """Serve the React frontend index.html"""
-        static_folder = '/app/static'
-        return send_from_directory(static_folder, 'index.html')
+        # Use different static folder path for local vs Docker
+        if os.path.exists('/app/static'):
+            static_folder = '/app/static'  # Docker path
+        else:
+            # For local development, return a simple response instead of trying to serve files
+            return jsonify({"message": "URL Shortener API is running!", "frontend": "available at localhost:3000"})
 
     
     #POST /shorten - takes in a long URL and returns a short URL
@@ -51,7 +55,14 @@ def register_routes(app):
             
             # Use HTTPS if the request came from HTTPS
             scheme = 'https' if request.is_secure or request.headers.get('X-Forwarded-Proto') == 'https' else 'http'
-            full_short_url = url_for('redirect_to_url', short_url=short_url, _external=True, _scheme=scheme)
+            
+            try:
+                full_short_url = url_for('redirect_to_url', short_url=short_url, _external=True, _scheme=scheme)
+            except Exception as e:
+                # Fallback for local development
+                print(f"url_for failed: {e}")
+                host = request.headers.get('Host', 'localhost:8000')
+                full_short_url = f"{scheme}://{host}/{short_url}"
             
             return create_success_response({
                 'short_url': full_short_url,

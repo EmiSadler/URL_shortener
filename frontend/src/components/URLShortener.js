@@ -43,7 +43,12 @@ const URLShortener = () => {
     setSuccess("");
 
     try {
-      const response = await axios.post("/shorten", { url: url.trim() });
+      // Use full URL for local development, relative URL for production
+      const baseURL =
+        process.env.NODE_ENV === "development" ? "http://localhost:8000" : "";
+      const response = await axios.post(`${baseURL}/shorten`, {
+        url: url.trim(),
+      });
       setShortUrl(response.data.short_url);
       setSuccess("URL shortened successfully!");
       setUrl("");
