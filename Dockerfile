@@ -48,10 +48,11 @@ EXPOSE 8000
 ENV FLASK_APP=main.py
 ENV FLASK_ENV=production
 ENV PYTHONPATH=/app
+ENV PORT=8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/ || exit 1
+    CMD curl -f http://localhost:${PORT}/ || exit 1
 
 # Create a non-root user
 RUN useradd --create-home --shell /bin/bash app
@@ -59,4 +60,4 @@ RUN chown -R app:app /app
 USER app
 
 # Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120", "main:create_app()"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT} --workers 4 --timeout 120 main:create_app()"]
