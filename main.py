@@ -5,7 +5,7 @@ from app.routes import register_routes
 
 def create_app():
     """Application factory"""
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='/app/static/static', static_url_path='/static')
     
     # Enable CORS for all routes (for frontend development)
     CORS(app)
