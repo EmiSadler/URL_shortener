@@ -2,6 +2,8 @@
 
 A full-stack URL shortener application with a Python Flask backend and React frontend.
 
+🚀 **Live Demo**: [https://url-shortener.sadlers.cloud/](https://url-shortener.sadlers.cloud/)
+
 ## Features
 
 ### Backend (Flask + SQLite)
@@ -138,7 +140,7 @@ Create several short URLs:
 # GitHub
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"url": "https://github.com/EmiSadler"}' \
+  -d '{"url": "https://github.com/EmiSadler/URL_shortener"}' \
   http://localhost:8000/shorten
 
 # Bootcamp Simulator

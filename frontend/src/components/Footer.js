@@ -41,7 +41,7 @@ const Footer = () => {
           </a>{" "}
           by Emily
           <a
-            href="https://github.com/EmiSadler"
+            href="https://github.com/EmiSadler/URL_shortener"
             target="_blank"
             rel="noopener noreferrer"
             style={{
