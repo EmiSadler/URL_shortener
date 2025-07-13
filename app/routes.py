@@ -48,7 +48,10 @@ def register_routes(app):
             # Generate short URL
             original_url = request_data.get('url').strip()
             short_url = get_short_url(original_url)
-            full_short_url = url_for('redirect_to_url', short_url=short_url, _external=True)
+            
+            # Use HTTPS if the request came from HTTPS
+            scheme = 'https' if request.is_secure or request.headers.get('X-Forwarded-Proto') == 'https' else 'http'
+            full_short_url = url_for('redirect_to_url', short_url=short_url, _external=True, _scheme=scheme)
             
             return create_success_response({
                 'short_url': full_short_url,
