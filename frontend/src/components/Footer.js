@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <footer
       style={{
-        background: "rgba(255, 255, 255, 0.1)",
+        background: "rgba(34, 116, 165, 0.8)",
         backdropFilter: "blur(10px)",
-        borderTop: "1px solid rgba(255, 255, 255, 0.2)",
-        color: "white",
+        borderTop: "1px solid rgba(93, 211, 158, 0.3)",
+        color: "#F7F7FF",
         textAlign: "center",
         padding: "1rem 0",
       }}
@@ -24,28 +24,14 @@ const Footer = () => {
             fontSize: "0.875rem",
           }}
         >
-          Made with <Heart size={16} fill="currentColor" /> for{" "}
-          <a
-            href="https://picnic.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "white",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.25rem",
-            }}
-          >
-            picnic.io
-          </a>{" "}
+          Made with <Heart size={16} fill="currentColor" />
           by Emily
           <a
             href="https://github.com/EmiSadler/URL_shortener"
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "white",
+              color: "#F7F7FF",
               marginLeft: "1rem",
               display: "flex",
               alignItems: "center",

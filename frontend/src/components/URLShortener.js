@@ -100,7 +100,7 @@ const URLShortener = () => {
                 fontSize: "2rem",
                 fontWeight: "700",
                 marginBottom: "0.5rem",
-                background: "#00E2DC",
+                background: "#5DD39E",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -108,7 +108,7 @@ const URLShortener = () => {
             >
               Shorten Your URLs
             </h2>
-            <p style={{ color: "#6b7280", fontSize: "1.1rem" }}>
+            <p style={{ color: "#F7F7FF", fontSize: "1.1rem" }}>
               Transform long URLs into short, shareable links in seconds
             </p>
           </div>
@@ -164,8 +164,8 @@ const URLShortener = () => {
             <div className="mt-6 fade-in">
               <div
                 style={{
-                  background: "#f8fafc",
-                  border: "2px solid #e2e8f0",
+                  background: "#373F47",
+                  border: "2px solid #2274A5",
                   borderRadius: "0.5rem",
                   padding: "1rem",
                 }}
@@ -175,7 +175,7 @@ const URLShortener = () => {
                     display: "block",
                     fontSize: "0.875rem",
                     fontWeight: "600",
-                    color: "#374151",
+                    color: "#F7F7FF",
                     marginBottom: "0.5rem",
                   }}
                 >
@@ -197,9 +197,10 @@ const URLShortener = () => {
                     style={{
                       flex: "1",
                       padding: "0.75rem",
-                      border: "1px solid #d1d5db",
+                      border: "1px solid #2274A5",
                       borderRadius: "0.375rem",
-                      background: "white",
+                      background: "#F7F7FF",
+                      color: "#373F47",
                       fontSize: "0.875rem",
                       minWidth: "200px",
                     }}

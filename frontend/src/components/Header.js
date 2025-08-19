@@ -5,9 +5,9 @@ const Header = () => {
   return (
     <header
       style={{
-        background: "rgba(255, 255, 255, 0.1)",
+        background: "rgba(34, 116, 165, 0.8)",
         backdropFilter: "blur(10px)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+        borderBottom: "1px solid rgba(93, 211, 158, 0.3)",
       }}
     >
       <div className="container">
@@ -19,10 +19,10 @@ const Header = () => {
             padding: "1rem 0",
           }}
         >
-          <Link size={28} style={{ color: "white", marginRight: "0.5rem" }} />
+          <Link size={28} style={{ color: "#F7F7FF", marginRight: "0.5rem" }} />
           <h1
             style={{
-              color: "white",
+              color: "#F7F7FF",
               fontSize: "1.5rem",
               fontWeight: "700",
               margin: 0,
