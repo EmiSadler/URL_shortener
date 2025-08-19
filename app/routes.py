@@ -18,6 +18,7 @@ def register_routes(app):
         # Use different static folder path for local vs Docker
         if os.path.exists('/app/static'):
             static_folder = '/app/static'  # Docker path
+            return send_from_directory(static_folder, 'index.html')
         else:
             # For local development, return a simple response instead of trying to serve files
             return jsonify({"message": "URL Shortener API is running!", "frontend": "available at localhost:3000"})
